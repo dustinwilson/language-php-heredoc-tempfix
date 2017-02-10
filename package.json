@@ -1,7 +1,7 @@
 {
-  "name": "language-php",
+  "name": "language-php-heredoc-tempfix",
   "version": "0.37.4",
-  "description": "PHP language support in Atom",
+  "description": "PHP language support in Atom with heredoc tempfix",
   "engines": {
     "atom": "*",
     "node": "*"
@@ -9,12 +9,9 @@
   "homepage": "http://atom.github.io/language-php",
   "repository": {
     "type": "git",
-    "url": "https://github.com/atom/language-php.git"
+    "url": "https://github.com/dustinwilson/language-php-heredoc-tempfix.git"
   },
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/atom/language-php/issues"
-  },
   "devDependencies": {
     "coffeelint": "^1.10.1"
   }
