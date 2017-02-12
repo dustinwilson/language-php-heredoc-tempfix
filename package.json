@@ -1,6 +1,6 @@
 {
   "name": "language-php-heredoc-tempfix",
-  "version": "0.38.1",
+  "version": "0.39.0",
   "description": "PHP language support in Atom with heredoc tempfix",
   "engines": {
     "atom": "*",
