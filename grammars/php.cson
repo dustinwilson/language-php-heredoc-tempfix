@@ -298,6 +298,7 @@
         'include': '#comments'
       }
       {
+        'name': 'meta.function.argument.array.php'
         'begin': '(?xi)\n\t\t\t\t\t\t\t\\s*(array) # Typehint\n\t\t\t\t\t\t\t\\s*(&)? \t\t\t\t\t# Reference\n\t\t\t\t\t\t\t\\s*((\\$+)[a-zA-Z_\\x{7f}-\\x{ff}][a-zA-Z0-9_\\x{7f}-\\x{ff}]*) # The variable name\n\t\t\t\t\t\t\t\\s*(=)\t# A default value\n\t\t\t\t\t\t\t\\s*(array)\\s*(\\()\n\t\t\t\t\t\t\t'
         'beginCaptures':
           '1':
@@ -319,7 +320,6 @@
         'endCaptures':
           '0':
             'name': 'punctuation.definition.array.end.php'
-        'name': 'meta.function.argument.array.php'
         'patterns': [
           {
             'include': '#comments'
@@ -333,6 +333,8 @@
         ]
       }
       {
+        'name': 'meta.function.argument.array.php'
+        'match': '(?xi)\n\t\t\t\t\t\t\t\\s*(array|callable) # Typehint\n\t\t\t\t\t\t\t\\s*(&)? \t\t\t\t\t# Reference\n\t\t\t\t\t\t\t\\s*((\\$+)[a-z_\\x{7f}-\\x{ff}][a-z0-9_\\x{7f}-\\x{ff}]*) # The variable name\n\t\t\t\t\t\t\t(?:\n\t\t\t\t\t\t\t\t\\s*(?:(=)\\s*(?:(null)|(\\[)((?>[^\\[\\]]+|\\[\\g<8>\\])*)(\\])|((?:\\S*?\\(\\))|(?:\\S*?))))\t# A default value\n\t\t\t\t\t\t\t)?\n\t\t\t\t\t\t\t\\s*(?=,|\\)|\/[\/*]|\\#|$) # A closing parentheses (end of argument list) or a comma or a comment\n\t\t\t\t\t\t\t'
         'captures':
           '1':
             'name': 'storage.type.php'
@@ -358,34 +360,43 @@
             'name': 'punctuation.section.array.end.php'
           '10':
             'name': 'invalid.illegal.non-null-typehinted.php'
-        'match': '(?xi)\n\t\t\t\t\t\t\t\\s*(array|callable) # Typehint\n\t\t\t\t\t\t\t\\s*(&)? \t\t\t\t\t# Reference\n\t\t\t\t\t\t\t\\s*((\\$+)[a-z_\\x{7f}-\\x{ff}][a-z0-9_\\x{7f}-\\x{ff}]*) # The variable name\n\t\t\t\t\t\t\t(?:\n\t\t\t\t\t\t\t\t\\s*(?:(=)\\s*(?:(null)|(\\[)((?>[^\\[\\]]+|\\[\\g<8>\\])*)(\\])|((?:\\S*?\\(\\))|(?:\\S*?))))\t# A default value\n\t\t\t\t\t\t\t)?\n\t\t\t\t\t\t\t\\s*(?=,|\\)|\/[\/*]|\\#|$) # A closing parentheses (end of argument list) or a comma or a comment\n\t\t\t\t\t\t\t'
-        'name': 'meta.function.argument.array.php'
       }
       {
+        'name': 'meta.function.argument.typehinted.php'
         'begin': '(?i)(?=[a-z_0-9\\\\]*[a-z_][a-z_0-9]*\\s*&?\\s*(?:\\.\\.\\.)?\\$)'
         'end': '(?=,|\\)|/[/*]|\\#|$)'
-        'name': 'meta.function.argument.typehinted.php'
         'patterns': [
           {
-            'include': '#class-name'
-          }
-          {
+            'match': '''
+                (?xi)
+                \\s*(?:(self|array|callable|bool|float|int|string)|([a-z_][a-z_0-9]*))? # Typehint
+                \\s*(&)? # Reference
+                \\s*(((?:\\.\\.\\.)?\\$+)[a-z_\\x{7f}-\\x{ff}][a-z0-9_\\x{7f}-\\x{ff}]*) # The variable name
+                (?:
+                    \\s*(?:(=)\\s*(?:(null)|((?:\\S*?\\(\\))|(?:\\S*?)))) # A default value
+                )?
+                \\s*(?=,|\\)|/[/*]|\\#|$) # A closing parentheses (end of argument list) or a comma
+                '''
             'captures':
               '1':
-                'name': 'support.class.php'
+                'name': 'storage.type.php'
               '2':
-                'name': 'storage.modifier.reference.php'
+                'name': 'support.class.php'
               '3':
-                'name': 'variable.other.php'
+                'name': 'storage.modifier.reference.php'
               '4':
-                'name': 'punctuation.definition.variable.php'
+                'name': 'variable.other.php'
               '5':
-                'name': 'keyword.operator.assignment.php'
+                'name': 'punctuation.definition.variable.php'
               '6':
-                'name': 'constant.language.php'
+                'name': 'keyword.operator.assignment.php'
               '7':
+                'name': 'constant.language.php'
+              '8':
                 'name': 'invalid.illegal.non-null-typehinted.php'
-            'match': '(?xi)\n        \t\t\t\t\t\t\t\\s*([a-z_][a-z_0-9]*)? # Typehinted class name\n        \t\t\t\t\t\t\t\\s*(&)? \t\t\t\t\t# Reference\n        \t\t\t\t\t\t\t\\s*(((?:\\.\\.\\.)?\\$+)[a-z_\\x{7f}-\\x{ff}][a-z0-9_\\x{7f}-\\x{ff}]*) # The variable name\n        \t\t\t\t\t\t\t(?:\n        \t\t\t\t\t\t\t\t\\s*(?:(=)\\s*(?:(null)|((?:\\S*?\\(\\))|(?:\\S*?))))\t# A default value\n        \t\t\t\t\t\t\t)?\n        \t\t\t\t\t\t\t\\s*(?=,|\\)|/[/*]|\\#|$) # A closing parentheses (end of argument list) or a comma\n\t\t\t\t\t        '
+          }
+          {
+            'include': '#class-name'
           }
         ]
       }
